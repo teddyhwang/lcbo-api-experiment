@@ -1,0 +1,24 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <meta name="robots" content="noindex">
+
+    <title>Points UI Assignment - LCBO Product Reviews</title>
+</head>
+
+<body>
+
+    <div id="app">
+        {{> lcbo}}
+    </div>
+
+</body>
+
+<template name="lcbo">
+    {{#each products}}
+        <p>{{name}}</p>
+    {{/each}}
+</template>
