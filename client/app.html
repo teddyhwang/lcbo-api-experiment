@@ -6,7 +6,7 @@
 
     <meta name="robots" content="noindex">
 
-    <title>Points UI Assignment - LCBO Product Reviews</title>
+    <title>LCBO API Experiment</title>
 </head>
 
 <body>
@@ -18,7 +18,11 @@
 </body>
 
 <template name="lcbo">
-    {{#each products}}
-        <p>{{name}}</p>
-    {{/each}}
+    <ul class="lcbo-show">
+        {{#each products}}
+            {{#if image_thumb_url}}
+                <li><span class="thumbnail" style="background-image: url({{image_thumb_url}});"></span></li>
+            {{/if}}
+        {{/each}}
+    </ul>
 </template>
