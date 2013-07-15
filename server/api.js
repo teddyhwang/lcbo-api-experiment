@@ -1,13 +1,13 @@
 // Server-side JavaScript to retrieve LCBO API results
 
 var API_URLS = {
-    products: "http://lcboapi.com/products/?per_page=80"
+    lcbo: "http://lcboapi.com"
 }
 
 // Let the server make HTTP Get requests to the LCBO API
 Meteor.methods({
-    api_products: function() {
+    lcbo: function(parameters) {
         this.unblock();
-        return Meteor.http.get(API_URLS.products);
+        return Meteor.http.get(API_URLS.lcbo+parameters);
     }
 });

@@ -12,17 +12,75 @@
 <body>
 
     <div id="app">
-        {{> lcbo}}
+        <div id="search-container">
+            {{> background_product_images}}
+            {{> search_products}}
+        </div>
+        {{> search_results}}
     </div>
 
 </body>
 
-<template name="lcbo">
-    <ul class="lcbo-show">
+<template name="background_product_images">
+    <ul class="product-show">
         {{#each products}}
-            {{#if image_thumb_url}}
-                <li><span class="thumbnail" style="background-image: url({{image_thumb_url}});"></span></li>
-            {{/if}}
+            <li><span class="thumbnail" style="background-image: url({{image_thumb_url}});"></span></li>
         {{/each}}
     </ul>
+</template>
+
+<template name="search_products">
+    <div id="search">
+        <form type="GET">
+            <input name="q" type="search" id="search-input" placeholder="Search for a beverage...">
+        </form>
+    </div>
+</template>
+
+<template name="search_results">
+    {{#if no_results}}
+        <div class="search-results">
+            Sorry, there were no search results for "{{query}}".
+        </div>
+    {{else}}
+        {{#if products}}
+            <div class="search-results">
+                <h2>Search results for "{{query}}". <small>Showing {{results_to_this_page}} of {{total_record_count}} results.</small></h2>
+                <ul>
+                    {{#each products}}
+                        {{#unless is_discontinued}}
+                        <li data-id="{{id}}">
+                            {{#if image_thumb_url}}
+                                <img src="{{image_thumb_url}}" alt="{{name}}">
+                            {{else}}
+                                <img src="/static/img/lcbo.png" alt="No Image">
+                            {{/if}}
+                            <div class="info">
+                                <h3>{{name}}</h3>
+                                <ul>
+                                    <li>Price: ${{price_in_dollar price_in_cents}}</li>
+                                    <li>Category: {{primary_category}}</li>
+                                    <li>Created In: {{origin}}</li>
+                                    <li>Package: {{package}}</li>
+                                    <li>Package type: {{package_unit_type}}</li>
+                                    <li>Unit Volume: {{package_unit_volume_in_milliliters}} mL</li>
+                                    <li>Comes in: {{total_package_units}}</li>
+                                </ul>
+                                <p><a href="#where-to-buy" class="where-to-buy">Where to Buy</a></p>
+                            </div>
+                        </li>
+                        {{/unless}}
+                    {{/each}}
+                </ul>
+                <div class="pagination">
+                    {{#if previous_page}}
+                        <a data-page_path="{{previous_page_path}}" class="btn left pagination">Previous Results</a>
+                    {{/if}}
+                    {{#if next_page}}
+                        <a data-page_path="{{next_page_path}}" class="btn right pagination">More Results</a>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+    {{/if}}
 </template>
