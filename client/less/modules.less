@@ -5,7 +5,7 @@
 .product-show {
     margin: 0;
     padding: 0;
-    opacity: 0.3;
+    opacity: 0.6;
 
     li {
         float: left;
@@ -46,7 +46,7 @@
 }
 
 .search-results {
-    background: #fff;
+    background: #eee;
     padding: 30px 20px;
     border-top: solid 1px rgba(0,0,0,0.5);
     margin-bottom: 80px;
@@ -74,6 +74,7 @@
                 font-weight: normal;
                 margin: 0 0 10px;
                 width: 180px;
+                max-height: 45px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -91,6 +92,19 @@
 
         .where-to-buy {
             text-decoration: none;
+            font-size: 13px;
+            #gradient .vertical(#fff, 0%, #ddd, 100%);
+            border: solid 1px rgba(0,0,0,0.2);
+            color: #333;
+            padding: 4px 20px;
+            text-transform: uppercase;
+            border-radius: 30px;
+
+            &:hover {
+                #gradient .vertical(#fff, 0%, #ccc, 100%);
+                color: #000;
+                cursor: pointer;
+            }
         }
 
         img {
@@ -99,6 +113,71 @@
             margin: 5px 30px 5px 5px;
             padding: 20px 0;
             width: 200px;
+            background: #fff;
         }
     }
+
+    .pagination {
+        overflow: hidden;
+    }
+}
+
+.product-detail {
+    background: #eee;
+    padding: 30px 20px;
+    border-top: solid 1px rgba(0,0,0,0.5);
+    margin-bottom: 80px;
+    .box-shadow(0px 1px 2px rgba(0,0,0,0.8));
+
+    ul, li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .stores {
+        overflow: hidden;
+
+        & > li {
+            padding: 20px;
+            width: 230px;
+            margin: 5px 5px 20px;
+            min-height: 180px;
+            float: left;
+            background: #fff;
+            .box-shadow(0px 0px 5px rgba(0,0,0,0.8));
+            font-size: 13px;
+            line-height: 20px;
+
+            &:nth-child(3n+2) {
+                margin: 5px 20px 20px;
+            }
+
+            h3 {
+                margin: 0 0 10px;
+            }
+        }
+    }
+}
+
+.btn {
+    text-decoration: none;
+    font-size: 13px;
+    #gradient .vertical(#fff, 0%, #ddd, 100%);
+    border: solid 1px rgba(0,0,0,0.2);
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+
+    &:hover {
+        #gradient .vertical(#fff, 0%, #ccc, 100%);
+        color: #000;
+        cursor: pointer;
+        text-decoration: none;
+    }
+}
+
+.hidden {
+    display: none;
 }

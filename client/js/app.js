@@ -5,6 +5,9 @@ Template.background_product_images.products = function() {
     return Session.get('product_images');
 };
 
+Template.search_results.hidden = function() {
+    return Session.get('search_results_hidden');
+};
 Template.search_results.no_results = function() {
     return Session.get('no_results');
 };
@@ -60,6 +63,18 @@ Template.search_results.next_page_path = function() {
     if (response) return response.pager.next_page_path;
 };
 
+Template.product_detail.stores = function() {
+    var response = Session.get('product_detail');
+
+    if (response) return response.result;
+};
+
+Template.product_detail.product_name = function() {
+    var response = Session.get('product_detail');
+
+    if (response) return response.product.name;
+};
+
 // Once the template has been created, fire the Meteor call to retrieve the API results
 Template.background_product_images.created = function() {
     Meteor.call('lcbo', '/products?per_page=100', function(error, results) {
@@ -113,6 +128,23 @@ Template.search_results.events({
         Meteor.call('lcbo', pagePath, function(error, results) {
             Session.set('search_results_response', results.data);
         });
+    },
+    'click .where-to-buy': function(evt) {
+        evt.preventDefault();
+        var productId = $(evt.currentTarget).parents('li').data('id');
+        Session.set('search_results_hidden', 'hidden');
+
+        Meteor.call('lcbo', '/products/'+productId+'/stores?per_page=100', function(error, results) {
+            Session.set('product_detail', results.data);
+        });
+    }
+});
+
+Template.product_detail.events({
+    'click .back-to-results': function(evt) {
+        evt.preventDefault();
+        Session.set('search_results_hidden', '');
+        Session.set('product_detail', '');
     }
 });
 

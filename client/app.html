@@ -17,6 +17,7 @@
             {{> search_products}}
         </div>
         {{> search_results}}
+        {{> product_detail}}
     </div>
 
 </body>
@@ -39,12 +40,12 @@
 
 <template name="search_results">
     {{#if no_results}}
-        <div class="search-results">
+        <div class="search-results {{hidden}}">
             Sorry, there were no search results for "{{query}}".
         </div>
     {{else}}
         {{#if products}}
-            <div class="search-results">
+            <div class="search-results {{hidden}}">
                 <h2>Search results for "{{query}}". <small>Showing {{results_to_this_page}} of {{total_record_count}} results.</small></h2>
                 <ul>
                     {{#each products}}
@@ -82,5 +83,31 @@
                 </div>
             </div>
         {{/if}}
+    {{/if}}
+</template>
+
+<template name="product_detail">
+    {{#if stores}}
+    <div class="product-detail">
+        <h2>Where to buy "{{product_name}}"</h2>
+        <p><a href="#back" class="btn back-to-results">Back To Results</a></p>
+        <ul class="stores">
+        {{#each stores}}
+            <li>
+                <h3>{{name}}</h3>
+                <ul>
+                    <li>{{address_line_1}}<br>
+                        {{#if address_line_2}}
+                            {{address_line_2}}
+                        {{/if}}
+                    </li>
+                    <li>{{city}} {{postal_code}}</li>
+                    <li>Telephone: {{telephone}}</li>
+                    <li>Fax: {{fax}}</li>
+                </ul>
+            </li>
+        {{/each}}
+    </ul>
+    </div>
     {{/if}}
 </template>
